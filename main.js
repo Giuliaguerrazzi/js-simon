@@ -4,61 +4,56 @@
 
 $(document).ready( function () {
 
+  var waitTime = 3000;
+
   // alert con i 5 numeri
   numarray = [];
 
-  var number = randomNumber (1, 50);
+  while (numarray.length < 5) {
+    var randNumber = randomNumber(1, 50);
 
-  for (var i = 0; i < 5; i++) {
-    var number = randomNumber (1, 50);
-
-    if (! numarray.includes(number) ) {
-      numarray.push(number);
+    if (! numarray.includes(randNumber) ) {
+        numarray.push(randNumber);
     }
   }
   console.log(numarray);
 
   alert(numarray);
 
-// 30 secondi per inserire i numeri
-  var display = $('.display');
+// Timer
+ setTimeout(function() {
+   var userNumber = [];
 
-  var secondi = 30;
+   while (userNumber.length < 5) {
+     var newUserNumber = parseInt( prompt('Inserisci il ' + (userNumber.length + 1) + 'numero'));
 
-  var interval = setInterval( function() {
+     while (isNaN(newUserNumber)) {
+       var newUserNumber = parseInt( prompt('Nuemro non valido! Inserisci il ' + (userNumber.length + 1) + 'numero'));
+     }
+     // se il numero non c'è push nell'array
+     if (! userNumber.includes(newUserNumber)) {
+       userNumber.push(newUserNumber);
+     } else {
+     alert('Numero già inserito')
+     }
+   }
 
-    if(secondi == 0) {
-      display.text('fine');
+   numeriTrovati = [];
 
-      clearInterval(interval);
-    }
-    else {
-      display.text(secondi);
-      secondi--;
-    }
-  }, 1000);
+   for (var i = 0; i < userNumber; i++) {
+     if (numarray.includes(userNumber[i])) {
+       numeriTrovati.push(userNumber[i]);
+     }
+   }
 
-// numeri da inserire
+   alert('RISULTATI\n' + numarray + ' Lista utente '+ userNumber + ' Indovinati ' + numeriTrovati.length + ' Numeri ' + numeriTrovati);
 
-userarray = [];
-
-for (var i = 0; i < 5; i++) {
-  var userNumber = parseInt( prompt('Inserisci numero') );
-
-  if (! userarray.includes(userNumber) ) {
-    userarray.push(userNumber);
-  }
-}
-
-console.log(userarray);
+}, waitTime);
 
 
-
-
-
-
+// function
   function randomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) - min;
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
 
 })
